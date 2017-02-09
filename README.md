@@ -10,7 +10,7 @@ http://blog.itpub.net/30089851/viewspace-2131976/
 02【在线日志分析】之基于Flume-ng Exec Source开发自定义插件AdvancedExecSource:       
 http://blog.itpub.net/30089851/viewspace-2131995/
 
-03【在线日志分析】之hadoop-2.7.3编译和搭建集群环境(HDFS HA,Yarn HA):
+03【在线日志分析】之hadoop-2.7.3编译和搭建集群环境(HDFS HA,Yarn HA):       
 http://blog.itpub.net/30089851/viewspace-2132036/
 
 04【在线日志分析】之Flume Agent的3台收集+1台聚合到hdfs的搭建:  
