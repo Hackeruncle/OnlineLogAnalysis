@@ -52,3 +52,4 @@ http://blog.itpub.net/30089851/viewspace-2133325/
 16【在线日志分析】之grafana-4.1.1 Install和新建日志分析的DashBoard:        
 http://blog.itpub.net/30089851/viewspace-2133327/
 
+![online_log_analysis dashboard](https://github.com/Hackeruncle/OnlineLogAnalysis/blob/master/raw/master/screenshots/DashBoard%20Demo.jpg)
