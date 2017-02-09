@@ -7,7 +7,7 @@ http://blog.itpub.net/30089851/viewspace-2132037/
 01【在线日志分析】之Flume-1.7.0源码编译导入eclipse:    
 http://blog.itpub.net/30089851/viewspace-2131976/
 
-02【在线日志分析】之基于Flume-ng Exec Source开发自定义插件AdvancedExecSource:  
+02【在线日志分析】之基于Flume-ng Exec Source开发自定义插件AdvancedExecSource:       
 http://blog.itpub.net/30089851/viewspace-2131995/
 
 03【在线日志分析】之hadoop-2.7.3编译和搭建集群环境(HDFS HA,Yarn HA):
