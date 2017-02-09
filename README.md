@@ -49,6 +49,6 @@ http://blog.itpub.net/30089851/viewspace-2133323/
 15【在线日志分析】之基于Spark Streaming+Saprk sql开发OnLineLogAanlysis2（Final）:	 
 http://blog.itpub.net/30089851/viewspace-2133325/
 
-16【在线日志分析】之grafana-4.1.1 Install和新建日志分析的DashBoard:       
+16【在线日志分析】之grafana-4.1.1 Install和新建日志分析的DashBoard:        
 http://blog.itpub.net/30089851/viewspace-2133327/
 
