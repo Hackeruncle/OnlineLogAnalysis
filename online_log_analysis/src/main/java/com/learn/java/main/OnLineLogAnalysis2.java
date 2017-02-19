@@ -45,7 +45,7 @@ public class OnLineLogAnalysis2 {
 
     //定义滑动间隔为5秒,窗口时间为30秒，即为计算每5秒的过去30秒的数据
     private static  final Duration slide_interval= new Duration(5 * 1000);
-    private static  final Duration window_length= new Duration(15*1000);
+    private static  final Duration window_length= new Duration(15 * 1000);
 
 
     private static final Pattern regexSpace = Pattern.compile(" ");
@@ -61,7 +61,8 @@ public class OnLineLogAnalysis2 {
 
     private static InfluxDB influxDB;
     private final static String dbName = "online_log_analysis";
-    public static void main(String[] args) {
+
+    private static void onlineLogsAnalysis(){
         try {
 
             //定义连接influxdb
@@ -69,9 +70,10 @@ public class OnLineLogAnalysis2 {
             String rp = TestUtils.defaultRetentionPolicy(influxDB.version());
 
             //1.使用 SparkSession,JavaSparkContext, JavaStreamingContext来定义 对象 jsc
-           SparkSession spark=  new SparkSession.Builder().master("local[2]").appName("OnLineLogAnalysis2").getOrCreate();
-           JavaSparkContext sc=new JavaSparkContext(spark.sparkContext());
-           JavaStreamingContext jssc= new JavaStreamingContext(sc,slide_interval);
+
+            final SparkSession ss=  new SparkSession.Builder().master("yarn-cluster").appName("OnLineLogAnalysis").getOrCreate();;
+            final JavaSparkContext sc=new JavaSparkContext(ss.sparkContext());
+            JavaStreamingContext jssc= new JavaStreamingContext(sc,slide_interval);
 
             //开启checkpoint机制，把checkpoint中的数据目录设置为hdfs目录
             /*
@@ -79,7 +81,7 @@ public class OnLineLogAnalysis2 {
             hdfs dfs -chmod -R 777 hdfs://172.16.101.56:8020/spark/checkpointdata
             hdfs dfs -ls hdfs://172.16.101.56:8020/spark/checkpointdata
              */
-            jssc.checkpoint("hdfs://172.16.101.55:8020/spark/checkpointdata");
+            jssc.checkpoint("hdfs://mycluster/spark/checkpointdata");
 
 
             //2.设置kafka的map参数
@@ -101,31 +103,31 @@ public class OnLineLogAnalysis2 {
                     ConsumerStrategies.<String,String> Subscribe(topics,kafkaParams));
 
             // A DStream of RDD's that contain parsed CDH Role Logs.
-           JavaDStream<CDHRoleLog> cdhRoleLogDStream =
-                   lines.map(new Function<ConsumerRecord<String, String>, CDHRoleLog>() {
-                       @Override
-                       public CDHRoleLog call(ConsumerRecord<String, String> logline) throws Exception {
-                           if(logline.value().contains("INFO")==true || logline.value().contains("WARN")==true || logline.value().contains("ERROR")==true || logline.value().contains("DEBUG")==true){
-                               //一个log的输出的第一行
-                               spiltstr = logline.value().split(" "); //按空格分割
-                               cdhRoleLog = new CDHRoleLog(
-                                       spiltstr[0],
-                                       spiltstr[1],
-                                       spiltstr[2]+" "+spiltstr[3],
-                                       spiltstr[4],
-                                       logline.value().substring(spiltstr[0].length()+spiltstr[1].length()+spiltstr[2].length()+spiltstr[3].length()+spiltstr[4].length()+spiltstr[4].length()+1)
-                               );
+            JavaDStream<CDHRoleLog> cdhRoleLogDStream =
+                    lines.map(new Function<ConsumerRecord<String, String>, CDHRoleLog>() {
+                        @Override
+                        public CDHRoleLog call(ConsumerRecord<String, String> logline) throws Exception {
+                            if(logline.value().contains("INFO")==true || logline.value().contains("WARN")==true || logline.value().contains("ERROR")==true || logline.value().contains("DEBUG")==true){
+                                //一个log的输出的第一行
+                                spiltstr = logline.value().split(" "); //按空格分割
+                                cdhRoleLog = new CDHRoleLog(
+                                        spiltstr[0],
+                                        spiltstr[1],
+                                        spiltstr[2]+" "+spiltstr[3],
+                                        spiltstr[4],
+                                        logline.value().substring(spiltstr[0].length()+spiltstr[1].length()+spiltstr[2].length()+spiltstr[3].length()+spiltstr[4].length()+spiltstr[4].length()+1)
+                                );
 
-                           }else {
-                               //一个log的输出的非第一行
-                               cdhRoleLog=null;
-                           }
-                           return  cdhRoleLog;
-                       }
-                   });
+                            }else {
+                                //一个log的输出的非第一行
+                                cdhRoleLog=null;
+                            }
+                            return  cdhRoleLog;
+                        }
+                    });
 
-          //过滤无效的RDD
-           JavaDStream<CDHRoleLog>  cdhRoleLogFilterDStream= cdhRoleLogDStream.filter(new Function<CDHRoleLog, Boolean>() {
+            //过滤无效的RDD
+            JavaDStream<CDHRoleLog>  cdhRoleLogFilterDStream= cdhRoleLogDStream.filter(new Function<CDHRoleLog, Boolean>() {
                 @Override
                 public Boolean call(CDHRoleLog v1) throws Exception {
                     return v1!=null?true:false;
@@ -148,31 +150,23 @@ public class OnLineLogAnalysis2 {
                     }
 
                     // 从RDD创建Dataset
-                    Dataset<Row> cdhRoleLogDR=spark.createDataFrame(cdhRoleLogJavaRDD,CDHRoleLog.class);
+                    Dataset<Row> cdhRoleLogDR=ss.createDataFrame(cdhRoleLogJavaRDD,CDHRoleLog.class);
 
                     //注册为临时表
                     cdhRoleLogDR.createOrReplaceTempView("cdhrolelogs");
 
                     //定义sql
-//                    sqlstr="SELECT hostName,serviceName,'INFO' logType,COUNT(logType) FROM cdhrolelogs where logType='INFO' GROUP BY hostName,serviceName " +
-//                            "union all " +
-//                            "SELECT hostName,serviceName,'DEBUG' logType,COUNT(logType) FROM cdhrolelogs where logType='DEBUG' GROUP BY hostName,serviceName " +
-//                            "union all " +
-//                            "SELECT hostName,serviceName,'WARN' logType,COUNT(logType) FROM cdhrolelogs where logType='WARN' GROUP BY hostName,serviceName " +
-//                            "union all " +
-//                            "SELECT hostName,serviceName,'ERROR' logType,COUNT(logType) FROM cdhrolelogs where logType='ERROR' GROUP BY hostName,serviceName ";
-
                     sqlstr="SELECT hostName,serviceName,logType,COUNT(logType) FROM cdhrolelogs GROUP BY hostName,serviceName,logType ";
 
                     //计算结果为List<Row>
-                    List<Row> logtypecount = spark.sql(sqlstr).collectAsList();
+                    List<Row> logtypecount = ss.sql(sqlstr).collectAsList();
 
                     value="";
                     //循环处理
                     for(Row rowlog:logtypecount){
                         host_service_logtype=rowlog.get(0)+"_"+rowlog.get(1)+"_"+rowlog.get(2);
                         value=value + "logtype_count,host_service_logtype="+host_service_logtype +
-                                      " count="+String.valueOf(rowlog.getLong(3))+"\n";
+                                " count="+String.valueOf(rowlog.getLong(3))+"\n";
                     }
 
                     if(value.length()>0){
@@ -199,6 +193,10 @@ public class OnLineLogAnalysis2 {
         }
 
 
+
+    }
+    public static void main(String[] args) {
+        onlineLogsAnalysis();
     }
 
 
