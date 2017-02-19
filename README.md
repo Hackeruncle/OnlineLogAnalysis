@@ -1,7 +1,7 @@
 **1.Index**
 
-00【在线日志分析】之项目概述:    
-http://blog.itpub.net/30089851/viewspace-2132037/
+[00【在线日志分析】之项目概述:  ]  (http://blog.itpub.net/30089851/viewspace-2132037/)
+
 
 01【在线日志分析】之Flume-1.7.0源码编译导入eclipse:    
 http://blog.itpub.net/30089851/viewspace-2131976/
@@ -50,6 +50,18 @@ http://blog.itpub.net/30089851/viewspace-2133325/
 
 16【在线日志分析】之grafana-4.1.1 Install和新建日志分析的DashBoard:        
 http://blog.itpub.net/30089851/viewspace-2133327/
+
+17【在线日志分析】之使用IDEA将工程Build成jar包
+http://blog.itpub.net/30089851/viewspace-2133861/
+
+18【在线日志分析】之Spark on Yarn配置日志Web UI(HistoryServer服务) 
+http://blog.itpub.net/30089851/viewspace-2133897/
+
+19【在线日志分析】之sparkdemo.jar运行在yarn上过程 
+http://blog.itpub.net/30089851/viewspace-2133917/
+
+20【在线日志分析】之记录一次Spark Streaming+Saprk sql的数据倾斜
+http://blog.itpub.net/30089851/viewspace-2133918/
 
 **2.online_log_analysis dashboard**
 ![online_log_analysis dashboard](https://github.com/Hackeruncle/OnlineLogAnalysis/blob/master/raw/master/screenshots/DashBoard%20Demo.jpg)
