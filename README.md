@@ -43,4 +43,4 @@
 [20【在线日志分析】之记录一次SparkStreaming+Saprksql的数据倾斜](http//blog.itpub.net/30089851/viewspace-2133918/)
 
 **2.online_log_analysisdashboard**
-![online_log_analysisdashboard](https//github.com/Hackeruncle/OnlineLogAnalysis/blob/master/raw/master/screenshots/DashBoard Demo.jpg)
+![online_log_analysisdashboard](https//github.com/Hackeruncle/OnlineLogAnalysis/blob/master/raw/master/screenshots/DashBoard_Demo.jpg)
