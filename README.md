@@ -1,6 +1,6 @@
 **1.Index**
 
-[00【在线日志分析】之项目概述](http://blog.itpub.net/30089851/viewspace-2132037/)
+[00【在线日志分析】之项目概述和GitHub项目地址](http://blog.itpub.net/30089851/viewspace-2132037/)
 
 [01【在线日志分析】之Flume-1.7.0源码编译导入eclipse](http://blog.itpub.net/30089851/viewspace-2131976/)
 
