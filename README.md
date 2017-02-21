@@ -42,5 +42,7 @@
 
 [20【在线日志分析】之记录一次SparkStreaming+Saprksql的数据倾斜](http://blog.itpub.net/30089851/viewspace-2133918/)
 
+[21【在线日志分析】之记录一个flume-ng的tail -f参数所诱发的血案](http://blog.itpub.net/30089851/viewspace-2134067/)
+
 **2.online_log_analysisdashboard**
 ![online_log_analysisdashboard](https://github.com/Hackeruncle/OnlineLogAnalysis/blob/master/raw/master/screenshots/DashBoard_Demo.jpg)
