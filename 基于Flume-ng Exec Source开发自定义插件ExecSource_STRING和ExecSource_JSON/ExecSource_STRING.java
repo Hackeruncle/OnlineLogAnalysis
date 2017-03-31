@@ -1,5 +1,6 @@
 package com.onlinelog.analysis;
 
+
 /*
  * 2017-1-5,by Hackeruncle
  * 
@@ -22,11 +23,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.flume.Channel;
+//import org.apache.flume.Channel;
 import org.apache.flume.Context;
 import org.apache.flume.Event;
 import org.apache.flume.EventDrivenSource;
-import org.apache.flume.Source;
+//import org.apache.flume.Source;
 import org.apache.flume.SystemClock;
 import org.apache.flume.channel.ChannelProcessor;
 import org.apache.flume.conf.Configurable;
@@ -42,9 +43,9 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import java.nio.charset.Charset;
 
 
-public class AdvancedExecSource extends AbstractSource implements EventDrivenSource, Configurable {
+public class ExecSource_STRING extends AbstractSource implements EventDrivenSource, Configurable {
 
-  private static final Logger logger = LoggerFactory.getLogger(AdvancedExecSource.class);
+  private static final Logger logger = LoggerFactory.getLogger(ExecSource_STRING.class);
 
   private String shell;
   private String command;
