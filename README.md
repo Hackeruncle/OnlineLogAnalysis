@@ -18,7 +18,7 @@
 
 [08【在线日志分析】之FlumeAgent(聚合节点)](http://blog.itpub.net/30089851/viewspace-2132060/)
 
-[09【在线日志分析】之基于SparkStreamingDirect方式的WordCount最详细案例(java版)]	(http://blog.itpub.net/30089851/viewspace-2132442/)
+[09【在线日志分析】之基于SparkStreamingDirect方式的WordCount最详细案例(java版)](http://blog.itpub.net/30089851/viewspace-2132442/)
 
 [10【在线日志分析】之基于SparkStreaming开发OnLineLogAanlysis1](http://blog.itpub.net/30089851/viewspace-2132443/)
 
